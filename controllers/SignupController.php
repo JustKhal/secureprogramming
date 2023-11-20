@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require "controllers/connection.php";
+    require "connection.php";
 
     if ($_SERVER['REQUEST_METHOD'] === "POST") {
         $fullname = $_POST['fullname'];
