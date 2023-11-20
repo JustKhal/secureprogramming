@@ -6,7 +6,7 @@ if ($_SESSION['login'] !== true) {
     exit();
 }
 
-$query = "SELECT sender_id, title, message, send_at, attachment, recipient_id,
+$query = "SELECT sender_id, title, message, send_at, attachment, recipient_id
                             -- (CASE recipient_id
                             --     WHEN 1 THEN 'Administrator'
                             --     WHEN 2 THEN 'Network Manager'
@@ -90,7 +90,7 @@ function displayAttachment($attachment) {
 
         // Check if the file extension is allowed
         if (in_array($extension, $allowedExtensions)) {
-            return '<img src="' . $attachment . '" alt="Attachment">';
+            return '<img src="' . $attachment . '" alt="Attachment" style="max-width:100%; height:auto;">';
         } else {
             return 'Invalid Attachment Format';
         }

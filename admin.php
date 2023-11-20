@@ -26,6 +26,29 @@ $db->close();
     <link rel="stylesheet" href="assets/style.css">
     <title>Admin Page</title>
 </head>
+<?php
+    if(isset($_SESSION["delete_error"])) {
+?>
+        <div class="alert alert-error">
+            <?= $_SESSION["delete_error"]; ?>
+        </div>
+
+<?php
+        unset($_SESSION["delete_error"]);
+    }
+?>
+
+<?php
+    if(isset($_SESSION["delete_success"])) {
+?>
+        <div class="alert alert-success">
+            <?= $_SESSION["delete_success"]; ?>
+        </div>
+
+<?php
+        unset($_SESSION["delete_success"]);
+    }
+?>
 <body>
     <div class="container">
         <h2>Welcome, <?php echo $_SESSION['username']; ?> (Admin)!</h2>
@@ -42,12 +65,12 @@ $db->close();
                 echo $row['message'];
                 echo '<p><strong>Sent at:</strong> ' . $row['send_at'] . '</p>';
                 echo '<p><strong>Attachment:</strong> ' . displayAttachment($row['attachment']) . '</p>';
-                echo '<form action="delete_message.php" method="post">';
+                echo '<form action="delete.php" method="POST">';
                 echo '<input type="hidden" name="message_id" value="' . $row['id'] . '">';
                 echo '<button type="submit">Delete</button>';
                 echo '</form>';
                 echo '</div>';
-                echo '<hr>'; 
+                echo '<hr>';
             }
         } else {
             echo "<p>No messages found.</p>";
@@ -83,7 +106,7 @@ function displayAttachment($attachment) {
 
         // Check if the file extension is allowed
         if (in_array($extension, $allowedExtensions)) {
-            return '<img src="' . $attachment . '" alt="Attachment">';
+            return '<img src="' . $attachment . '" alt="Attachment" style="max-width:100%; height:auto;">';
         } else {
             return 'Invalid Attachment Format';
         }
