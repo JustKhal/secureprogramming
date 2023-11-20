@@ -63,7 +63,7 @@
                     echo $row['message'];
                     echo '<p><strong>Sent at:</strong> ' . $row['send_at'] . '</p>';
                     echo '<p><strong>Attachment:</strong> ' . displayAttachment($row['attachment']) . '</p>';
-                    echo '<form action="controllers/delete.php" method="POST">';
+                    echo '<form action="controllers/DeleteController.php" method="POST">';
                     echo '<input type="hidden" name="message_id" value="' . $row['id'] . '">';
                     echo '<button type="submit">Delete</button>';
                     echo '</form>';
