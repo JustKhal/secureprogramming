@@ -106,7 +106,7 @@ function displayAttachment($attachment) {
         if (in_array($extension, $allowedImageExtensions)) {
             return '<img src="' . $attachment . '" alt="Attachment" style="max-width:100%; height:auto;">';
         } else {
-            return '<p><strong>Attachment:</strong> ' . htmlspecialchars($originalFileName) . '</p>';
+            return htmlspecialchars($originalFileName);
         }
     } else {
         return 'No Attachment';

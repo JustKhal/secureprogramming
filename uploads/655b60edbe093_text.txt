@@ -1,0 +1,4 @@
+product_ID,product_name,stock
+1,Mouse,100
+2,Monitor,50
+3,Keyboard,75
