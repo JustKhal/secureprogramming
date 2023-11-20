@@ -36,7 +36,7 @@ if (isset($_SESSION["error_message"])) {
             <button type="submit">Sign Up</button>
         </form>
 
-        <p>Already have an account? <a href="index.php">Log in here</a>.</p>
+        <p>Already have an account? <a href="index.php"><button type="button">Log in here</button></a>.</p>
     </div>
 </body>
 </html>
