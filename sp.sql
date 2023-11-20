@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 20, 2023 at 02:16 PM
+-- Generation Time: Nov 20, 2023 at 06:29 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -56,7 +56,7 @@ CREATE TABLE `users` (
   `username` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `role` varchar(16) NOT NULL,
-  `password` varchar(100) NOT NULL,
+  `password` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
@@ -66,8 +66,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `fullname`, `username`, `email`, `role`, `password`, `created_at`, `updated_at`) VALUES
-(1, 'test1', 'test1', 'test1@test.com', 'user', 'test1test1', '2019-04-30 07:13:37', '2023-11-20 03:54:17'),
-(5, 'admin', 'admin', 'admin@gmail.com', 'admin', 'admin', '2019-04-30 07:13:37', '2023-11-20 03:54:17');
+(1, 'test1', 'test1', 'test1@test.com', 'user', '$2y$10$Ev3jPLij.MPwnZJSw79O2OPeTemoj8HUfM1mWvfBTdK7wTFNxkL52', '2019-04-30 07:13:37', '2023-11-20 15:39:01'),
+(5, 'admin', 'admin', 'admin@gmail.com', 'admin', '$2y$10$C5wX9Tff3Pb9sKylW58S4.IWCCv3ZCqKM1Kry3CnlQg9KYtQ25tX2', '2019-04-30 07:13:37', '2023-11-20 15:38:24');
 
 --
 -- Indexes for dumped tables
@@ -95,7 +95,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `communications`
 --
 ALTER TABLE `communications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `users`
