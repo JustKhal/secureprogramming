@@ -5,12 +5,15 @@
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $recipient = $_POST['recipient'];
         $validRec = [1, 2, 3, 4];
+
+        // Check Recipient Value
         if (!in_array($recipient, $validRec)) {
             $_SESSION['error_message'] = "Invalid Recipient Value!";
             header("Location: ../send.php");
             exit;
         }
 
+        // check title
         $title = htmlspecialchars($_POST['title'], ENT_QUOTES, 'UTF-8');
         if (empty($title) || strlen($title) > 32) {
             $_SESSION['error_message'] = "Invalid Title! Please provide a non-empty title with a maximum length of 32 characters.";
@@ -18,7 +21,23 @@
             exit;
         }
 
+        // Check message
         $message = htmlspecialchars($_POST['message'], ENT_QUOTES, 'UTF-8');
+        if (empty($message) || strlen($message) > 255 || str_word_count($message) < 5) {
+            $_SESSION['error_message'] = "Invalid Message! Please provide a non-empty message with a maximum length of 255 characters and at least 5 words.";
+            header("Location: ../send.php");
+            exit;
+        }
+
+        // Check for swear words in the message
+        $swearWords = ['fuck', 'bitch', 'shit', 'motherfucker'];
+        foreach ($swearWords as $word) {
+            if (stripos($message, $word) !== false) {
+                $_SESSION['error_message'] = "Invalid Message! Please avoid using inappropriate language.";
+                header("Location: ../send.php");
+                exit;
+            }
+        }
 
         if (isset($_FILES['user_file'])) {
             $attachment = $_FILES['user_file'];
@@ -28,12 +47,14 @@
 
             $extension = pathinfo($attachment_name, PATHINFO_EXTENSION);
 
+            // check file extension
             if (!in_array(strtolower($extension), $allowedExtensions)) {
                 $_SESSION['error_message'] = "Invalid Attachment Format! Allowed formats: PDF, PNG, JPEG, DOCX, XLSX, MP4, ZIP, 7Z, TXT, RAR, PPTX.";
                 header("Location: ../send.php");
                 exit;
             }
 
+            // Check file size
             $maxFileSize = 10 * 1024 * 1024;
             if ($attachment['size'] > $maxFileSize || $attachment['size'] <= 0) {
                 $_SESSION['error_message'] = "Invalid Attachment Size! Must be greater than 0 bytes and less than 10 MB.";
@@ -48,8 +69,8 @@
             $attachment_dir = "uploads/" . $randomizedFilename;
 
             // Check for special characters in the filename
-            if (preg_match('/[\/\\\\.]/', $randomizedFilename)) {
-                $_SESSION['error_message'] = "Invalid characters in the filename! Please avoid using ., /, \\ in the filename.";
+            if (preg_match('/[\/\\\\]+/', $randomizedFilename) || substr_count($randomizedFilename, '.') > 1) {
+                $_SESSION['error_message'] = "Invalid characters in the filename! Please avoid using /, \\, and more than one dot in the filename (except for the dot in the extension).";
                 header("Location: ../send.php");
                 exit;
             }
@@ -64,21 +85,11 @@
             die("Connection failed: " . $db->connect_error);
         }
 
-        $user_id = $_SESSION['user_id']; // No need to call session_start() again
+        $user_id = $_SESSION['user_id'];
 
         $send_at = date("Y-m-d H:i:s");
 
         $recipient_id = null;
-
-        if ($recipient == 1) {
-            $recipient_id = 1; // Administrator
-        } elseif ($recipient == 2) {
-            $recipient_id = 2; // Network Manager
-        } elseif ($recipient == 3) {
-            $recipient_id = 3; // IT Support
-        } elseif ($recipient == 4) {
-            $recipient_id = 4; // Coworker
-        }
 
         $query = "INSERT INTO communications (sender_id, recipient_id, title, message, send_at, attachment) VALUES (?, ?, ?, ?, ?, ?)";
 

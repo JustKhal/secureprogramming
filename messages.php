@@ -32,6 +32,18 @@ $result = $stmt->get_result();
     <link rel="stylesheet" href="assets/style.css">
     <title>Messages</title>
 </head>
+<?php
+    if(isset($_SESSION["success_message"])) {
+?>
+        <div class="alert alert-success">
+            <?= $_SESSION["success_message"]; ?>
+        </div>
+
+<?php
+        unset($_SESSION["success_message"]);
+    }
+?>
+
 <body>
     <div class="container">
         <h2>Welcome, <?php echo $_SESSION['username']; ?>!</h2>
