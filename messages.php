@@ -96,14 +96,17 @@ function getRecipientName($recipientId) {
 function displayAttachment($attachment) {
     // Check if there is an attachment
     if (!empty($attachment)) {
-        $allowedExtensions = ['png', 'jpg', 'jpeg'];
+        $allowedImageExtensions = ['png', 'jpg', 'jpeg'];
         $extension = pathinfo($attachment, PATHINFO_EXTENSION);
 
-        // Check if the file extension is allowed
-        if (in_array($extension, $allowedExtensions)) {
+        // Get the original file name without the unique ID prefix
+        $originalFileName = preg_replace('/^[^_]+_/', '', basename($attachment));
+
+        // Check if the file extension is allowed as an image
+        if (in_array($extension, $allowedImageExtensions)) {
             return '<img src="' . $attachment . '" alt="Attachment" style="max-width:100%; height:auto;">';
         } else {
-            return 'Invalid Attachment Format';
+            return '<p><strong>Attachment:</strong> ' . htmlspecialchars($originalFileName) . '</p>';
         }
     } else {
         return 'No Attachment';
