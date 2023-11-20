@@ -12,24 +12,12 @@ session_start();
 </head>
 <?php
     if(isset($_SESSION['error_message'])) {
-?>
-        <div class="alert alert-error">
-            <?= $_SESSION['error_message']; ?>
-        </div>
-
-<?php
+        echo '<div class="alert alert-error">' . $_SESSION['error_message'] .'</div>';
         unset($_SESSION['error_message']);
     }
-?>
 
-<?php
     if(isset($_SESSION['success_message'])) {
-?>
-        <div class="alert alert-success">
-            <?= $_SESSION['success_message']; ?>
-        </div>
-
-<?php
+        echo '<div class="alert alert-success">' . $_SESSION['success_message'] . '</div>';
         unset($_SESSION['success_message']);
     }
 ?>

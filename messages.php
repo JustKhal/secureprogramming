@@ -33,14 +33,14 @@ $result = $stmt->get_result();
     <title>Messages</title>
 </head>
 <?php
-    if(isset($_SESSION["success_message"])) {
-?>
-        <div class="alert alert-success">
-            <?= $_SESSION["success_message"]; ?>
-        </div>
+    if(isset($_SESSION['error_message'])) {
+        echo '<div class="alert alert-error">' . $_SESSION['error_message'] .'</div>';
+        unset($_SESSION['error_message']);
+    }
 
-<?php
-        unset($_SESSION["success_message"]);
+    if(isset($_SESSION['success_message'])) {
+        echo '<div class="alert alert-success">' . $_SESSION['success_message'] . '</div>';
+        unset($_SESSION['success_message']);
     }
 ?>
 
@@ -99,14 +99,11 @@ function displayAttachment($attachment) {
         $allowedImageExtensions = ['png', 'jpg', 'jpeg'];
         $extension = pathinfo($attachment, PATHINFO_EXTENSION);
 
-        // Get the original file name without the unique ID prefix
-        $originalFileName = preg_replace('/^[^_]+_/', '', basename($attachment));
-
         // Check if the file extension is allowed as an image
         if (in_array($extension, $allowedImageExtensions)) {
             return '<img src="' . $attachment . '" alt="Attachment" style="max-width:100%; height:auto;">';
         } else {
-            return htmlspecialchars($originalFileName);
+            return "No Attachment";
         }
     } else {
         return 'No Attachment';

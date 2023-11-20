@@ -27,24 +27,12 @@
     </head>
     <?php
         if(isset($_SESSION["delete_error"])) {
-    ?>
-            <div class="alert alert-error">
-                <?= $_SESSION["delete_error"]; ?>
-            </div>
-
-    <?php
+            echo '<div class="alert alert-error">' . $_SESSION["delete_error"] . '</div>';
             unset($_SESSION["delete_error"]);
         }
-    ?>
 
-    <?php
         if(isset($_SESSION["delete_success"])) {
-    ?>
-            <div class="alert alert-success">
-                <?= $_SESSION["delete_success"]; ?>
-            </div>
-
-    <?php
+            echo '<div class="alert alert-success">' . $_SESSION["delete_success"] . '</div>';
             unset($_SESSION["delete_success"]);
         }
     ?>

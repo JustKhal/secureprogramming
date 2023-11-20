@@ -7,14 +7,15 @@
     <title>Sign Up</title>
 </head>
 <?php
-if (isset($_SESSION["error_message"])) {
-    ?>
-    <div class="alert alert-error">
-        <?= $_SESSION["error_message"]; ?>
-    </div>
-    <?php
-    unset($_SESSION["error_message"]);
-}
+    if(isset($_SESSION['error_message'])) {
+        echo '<div class="alert alert-error">' . $_SESSION['error_message'] .'</div>';
+        unset($_SESSION['error_message']);
+    }
+
+    if(isset($_SESSION['success_message'])) {
+        echo '<div class="alert alert-success">' . $_SESSION['success_message'] . '</div>';
+        unset($_SESSION['success_message']);
+    }
 ?>
 
 <body>

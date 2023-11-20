@@ -43,13 +43,13 @@
             $attachment = $_FILES['user_file'];
             $attachment_name = $attachment['name'];
             $attachment_tmp_name = $attachment['tmp_name'];
-            $allowedExtensions = ['pdf', 'png', 'jpg', 'jpeg', 'docx', 'xlsx', 'mp4', 'zip', '7z', 'txt', 'rar', 'pptx'];
+            $allowedExtensions = ['png', 'jpg', 'jpeg'];
 
             $extension = pathinfo($attachment_name, PATHINFO_EXTENSION);
 
             // check file extension
             if (!in_array(strtolower($extension), $allowedExtensions)) {
-                $_SESSION['error_message'] = "Invalid Attachment Format! Allowed formats: PDF, PNG, JPG, JPEG, DOCX, XLSX, MP4, ZIP, 7Z, TXT, RAR, PPTX.";
+                $_SESSION['error_message'] = "Invalid Attachment Format! Allowed formats: PNG, JPG, JPEG.";
                 header("Location: ../send.php");
                 exit;
             }
