@@ -35,7 +35,6 @@ $result = $stmt->get_result();
 <body>
     <div class="container">
         <h2>Welcome, <?php echo $_SESSION['username']; ?>!</h2>
-        <p><?php echo $_SESSION['success_message']; ?></p>
         <form action="send.php" method="get">
             <button type="submit">Compose</button>
         </form>

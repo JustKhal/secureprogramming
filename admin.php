@@ -52,7 +52,6 @@ $db->close();
 <body>
     <div class="container">
         <h2>Welcome, <?php echo $_SESSION['username']; ?> (Admin)!</h2>
-        <p><?php echo $_SESSION['success_message']; ?></p>
         <h3>All Messages</h3>
 
         <?php
