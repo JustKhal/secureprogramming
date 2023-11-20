@@ -35,6 +35,13 @@
             exit();
         }
 
+        // Validate password strength
+        if (!isPasswordStrong($password)) {
+            $_SESSION["error_message"] = "Password must be at least 8 characters long, contain at least one capital letter, one number, and one special character.";
+            header("Location: ../signup.php");
+            exit();
+        }
+
         // Hash the password
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
@@ -54,5 +61,18 @@
         $checkUsernameStmt->close();
         $checkEmailStmt->close();
         $db->close();
+
+        function isPasswordStrong($password) {
+            // Minimum length of 8 characters
+            $length = strlen($password) >= 8;
+            // At least one capital letter
+            $capital = preg_match('/[A-Z]/', $password);
+            // At least one number
+            $number = preg_match('/\d/', $password);
+            // At least one special character
+            $specialChar = preg_match('/[^A-Za-z0-9]/', $password);
+
+            return $length && $capital && $number && $specialChar;
+        }
     }
 ?>

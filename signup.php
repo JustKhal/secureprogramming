@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +24,7 @@
 
 <body>
     <div class="container">
-        <form action="signup.php" method="POST">
+        <form action="controllers/SignupController.php" method="POST">
             <h2>Sign Up</h2>
             <label for="fullname">Full Name:</label>
             <input type="text" id="fullname" name="fullname" required>

@@ -31,11 +31,11 @@
                     header("Location: ../messages.php");
                 }
             } else {
-                $_SESSION["error_message"] = "Login Failed (Invalid Password)";
+                $_SESSION["error_message"] = "Login Failed";
                 header("Location: ../index.php");
             }
         } else {
-            $_SESSION["error_message"] = "Login Failed (Invalid Username)";
+            $_SESSION["error_message"] = "Login Failed";
             header("Location: ../index.php");
         }
 
