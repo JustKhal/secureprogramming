@@ -1,5 +1,5 @@
 <?php
-require "/xampp/htdocs/sp/config/database.php";
+require __DIR__ . "/../config/database.php";
 $db = new mysqli(
     $config["server"],
     $config["username"],
