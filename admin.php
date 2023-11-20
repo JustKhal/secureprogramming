@@ -98,12 +98,11 @@ function getRecipientName($recipientId) {
 }
 
 function displayAttachment($attachment) {
-    // Check if there is an attachment
+
     if (!empty($attachment)) {
         $allowedExtensions = ['png', 'jpg', 'jpeg'];
         $extension = pathinfo($attachment, PATHINFO_EXTENSION);
 
-        // Check if the file extension is allowed
         if (in_array($extension, $allowedExtensions)) {
             return '<img src="' . $attachment . '" alt="Attachment" style="max-width:100%; height:auto;">';
         } else {

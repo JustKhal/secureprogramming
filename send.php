@@ -15,6 +15,18 @@ if ($_SESSION['login'] !== true) {
     <link rel="stylesheet" href="assets/style.css">
     <title>Send Message</title>
 </head>
+<?php
+    if(isset($_SESSION['error_message'])) {
+?>
+        <div class="alert alert-error">
+            <?= $_SESSION['error_message']; ?>
+        </div>
+
+<?php
+        unset($_SESSION['error_message']);
+    }
+?>
+
 <body>
     <div class="container">
         <form action="controllers/MessageController.php" method="POST" enctype="multipart/form-data">
