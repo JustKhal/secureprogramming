@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/style.css">
+    <title>Sign Up</title>
+</head>
+<?php
+if (isset($_SESSION["error_message"])) {
+    ?>
+    <div class="alert alert-error">
+        <?= $_SESSION["error_message"]; ?>
+    </div>
+    <?php
+    unset($_SESSION["error_message"]);
+}
+?>
+
+<body>
+    <div class="container">
+        <form action="signup.php" method="POST">
+            <h2>Sign Up</h2>
+            <label for="fullname">Full Name:</label>
+            <input type="text" id="fullname" name="fullname" required>
+
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <button type="submit">Sign Up</button>
+        </form>
+
+        <p>Already have an account? <a href="index.php">Log in here</a>.</p>
+    </div>
+</body>
+</html>
