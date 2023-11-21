@@ -6,6 +6,7 @@
         header("Location: index.php");
         exit();
     }
+    validateSession();
     ?>
 
     <!DOCTYPE html>
@@ -55,3 +56,17 @@
         </div>
     </body>
     </html>
+
+<?php
+    function validateSession(){
+        $sessionLifetime = 30 * 60; // Set session lifetime (e.g., 30 * 60 seconds = 30 minutes)
+
+        if (isset($_SESSION['last_access']) && (time() - $_SESSION['last_access']) > $sessionLifetime) {
+            session_unset();
+            session_destroy();
+            header("Location: index.php?timeoutMessage='Session%20Timeout!'");
+            exit;
+        }
+
+        $_SESSION['last_access'] = time();
+    }
