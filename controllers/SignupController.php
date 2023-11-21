@@ -35,6 +35,13 @@
             exit();
         }
 
+        // Validate email format
+        if (!isValidEmail($email)) {
+            $_SESSION["error_message"] = "Invalid email format. Please enter a valid email address.";
+            header("Location: ../signup.php");
+            exit();
+        }
+
         // Validate password strength
         if (!isPasswordStrong($password)) {
             $_SESSION["error_message"] = "Password must be at least 8 characters long, contain at least one capital letter, one number, and one special character.";
@@ -61,6 +68,10 @@
         $checkUsernameStmt->close();
         $checkEmailStmt->close();
         $db->close();
+
+        function isValidEmail($email) {
+            return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
+        }
 
         function isPasswordStrong($password) {
             // Minimum length of 8 characters
