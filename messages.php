@@ -1,5 +1,4 @@
 <?php
-    session_start();
     require_once 'controllers/connection.php';
     require_once 'controllers/CustomSessionHandler.php';
     if ($_SESSION['login'] !== true) {
