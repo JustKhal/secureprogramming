@@ -9,6 +9,7 @@
     }
 
     validateSession();
+    validateUserAgentAndIP();
 
     $query = "SELECT sender_id, title, message, send_at, attachment, recipient_id
                                 -- (CASE recipient_id
@@ -125,5 +126,24 @@
         }
 
         $_SESSION['last_access'] = time();
+    }
+
+    function validateUserAgentAndIP()
+    {
+        $userAgent = $_SERVER['HTTP_USER_AGENT'];
+        $ipAddress = $_SERVER['REMOTE_ADDR'];
+
+        if (!isset($_SESSION['user_agent']) && !isset($_SESSION['ip_address'])) {
+
+            $_SESSION['user_agent'] = $userAgent;
+            $_SESSION['ip_address'] = $ipAddress;
+        } else {
+            if ($_SESSION['user_agent'] !== $userAgent || $_SESSION['ip_address'] !== $ipAddress) {
+                session_unset();
+                session_destroy();
+                header("Location: index.php?timeoutMessage='HIJACKED%20SESSION!'");
+                exit;
+            }
+        }
     }
 ?>
