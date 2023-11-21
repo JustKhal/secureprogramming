@@ -1,6 +1,7 @@
 <?php
     session_start();
-    require "connection.php";
+    require_once 'controllers/connection.php';
+    require_once 'CustomSessionHandler.php';
 
     if ($_SERVER['REQUEST_METHOD'] === "POST") {
 

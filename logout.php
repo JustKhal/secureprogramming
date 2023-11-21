@@ -1,7 +1,5 @@
 <?php
-session_start();
-
-$_SESSION = array();
+require_once 'controllers/CustomSessionHandler.php';
 
 session_destroy();
 
