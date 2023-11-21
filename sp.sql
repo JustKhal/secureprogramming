@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 20, 2023 at 06:29 PM
+-- Generation Time: Nov 21, 2023 at 06:12 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -42,7 +42,21 @@ CREATE TABLE `communications` (
 --
 
 INSERT INTO `communications` (`id`, `sender_id`, `recipient_id`, `title`, `message`, `send_at`, `attachment`) VALUES
-(13, 1, 1, 'asdfasdf', 'a a a a a a', '2023-11-20 03:02:45', 'uploads/655b20b52da01_osi-layer.png');
+(13, 1, 1, 'asdfasdf', 'a a a a a a', '2023-11-20 03:02:45', 'uploads/655b20b52da01_osi-layer.png'),
+(18, 1, 1, 'test', 'test test test test test test test test test', '2023-11-21 10:00:12', 'uploads/655cd40c7d771_Before 1.png');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sessions`
+--
+
+CREATE TABLE `sessions` (
+  `session_id` varchar(255) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `data` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -82,6 +96,12 @@ ALTER TABLE `communications`
   ADD KEY `foreign_constraint_sender` (`sender_id`);
 
 --
+-- Indexes for table `sessions`
+--
+ALTER TABLE `sessions`
+  ADD PRIMARY KEY (`session_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -95,7 +115,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `communications`
 --
 ALTER TABLE `communications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `users`
