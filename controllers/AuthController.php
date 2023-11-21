@@ -1,7 +1,7 @@
     <?php
-    session_start();
     require_once 'connection.php';
     require_once 'CustomSessionHandler.php';
+    session_start();
 
     if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
@@ -24,7 +24,6 @@
 
         if ($result->num_rows === 1) {
             $row = $result->fetch_assoc();
-            $_SESSION["error_message"] = "Login Failed a";    
             // Verify the entered password against the hashed password in the database
             if (password_verify($password, $row['password'])) {
                 $_SESSION["success_message"] = "Login Success";

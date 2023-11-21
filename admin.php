@@ -1,7 +1,7 @@
 <?php
-    session_start();
     require_once 'controllers/connection.php';
     require_once 'controllers/CustomSessionHandler.php';
+    session_start();
 
     // Check if the user is logged in and has the role of "admin"
     if ($_SESSION['login'] !== true || $_SESSION['role'] !== 'admin') {

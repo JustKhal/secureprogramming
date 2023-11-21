@@ -16,11 +16,6 @@ session_start();
         unset($_SESSION['error_message']);
     }
 
-    if(isset($_SESSION['success_message'])) {
-        echo '<div class="alert alert-success">' . $_SESSION['success_message'] . '</div>';
-        unset($_SESSION['success_message']);
-    }
-
     if(isset($_GET['message'])){
         echo '<div class="alert alert-success">' . $_GET['message'] . '</div>';
         unset($_GET['message']);

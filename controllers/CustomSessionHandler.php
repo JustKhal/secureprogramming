@@ -22,25 +22,26 @@
 
         public function read($sessionId): string|false
         {
-            $stmt = $this->db->prepare("SELECT user_id FROM sessions WHERE session_id = ?");
+            $stmt = $this->db->prepare("SELECT data FROM sessions WHERE session_id = ?");
             $stmt->bind_param("s", $sessionId);
             $stmt->execute();
             $result = $stmt->get_result();
             $data = $result->fetch_assoc();
             $stmt->close();
 
-            return $data['user_id'] ?: '';
+            return $data['data'] ?: '';
         }
 
         public function write($sessionId, $data): bool
         {
-            $userId = $data;
+            // Get user_id from session data or another source
+            $userId = $this->getUserIdFromSessionData($data);
 
             // Clear previous sessions for the same user_id
             $this->clearPreviousSessions($userId);
 
-            $stmt = $this->db->prepare("REPLACE INTO sessions (session_id, user_id, timestamp) VALUES (?, ?, NOW())");
-            $stmt->bind_param("ss", $sessionId, $userId);
+            $stmt = $this->db->prepare("REPLACE INTO sessions (session_id, user_id, data, timestamp) VALUES (?, ?, ?, NOW())");
+            $stmt->bind_param("sss", $sessionId, $userId, $data);
             $result = $stmt->execute();
             $stmt->close();
 
@@ -76,7 +77,14 @@
             $stmt->execute();
             $stmt->close();
         }
+
+        private function getUserIdFromSessionData($data)
+        {
+            $sessionData = $_SESSION;
+            return $sessionData['user_id'];
+        }
     }
 
     $customSessionHandler = new CustomSessionHandler();
     session_set_save_handler($customSessionHandler, true);
+?>

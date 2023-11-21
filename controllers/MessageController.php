@@ -1,7 +1,7 @@
 <?php
-    session_start();
     require_once 'connection.php';
     require_once 'CustomSessionHandler.php';
+    session_start();
 
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $recipient = $_POST['recipient'];

@@ -1,7 +1,7 @@
 <?php
-    session_start();
     require_once 'connection.php';
     require_once 'CustomSessionHandler.php';
+    session_start();
 
     if (!isset($_SESSION['login']) || $_SESSION['role'] !== 'admin') {
         header("Location: login.php");
