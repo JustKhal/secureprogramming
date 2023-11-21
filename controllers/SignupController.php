@@ -5,6 +5,8 @@
     if ($_SERVER['REQUEST_METHOD'] === "POST") {
         $fullname = $_POST['fullname'];
         $username = $_POST['username'];
+        // Convert the username to lowercase
+        $username = strtolower($username);
         $password = $_POST['password'];
         $email = $_POST['email'];
 
@@ -49,6 +51,13 @@
             exit();
         }
 
+        // Validate username format
+        if (!isValidUsername($username)) {
+            $_SESSION["error_message"] = "Username must be at least 6 characters long and can only contain alphabets (lowercase and uppercase).";
+            header("Location: ../signup.php");
+            exit();
+        }
+
         // Hash the password
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
@@ -84,6 +93,15 @@
             $specialChar = preg_match('/[^A-Za-z0-9]/', $password);
 
             return $length && $capital && $number && $specialChar;
+        }
+
+        function isValidUsername($username) {
+            // Minimum length of 6 characters
+            $length = strlen($username) >= 6;
+            // Alphanumeric characters only
+            $alphanumericOnly = ctype_alnum($username);
+
+            return $length && $alphanumericOnly;
         }
     }
 ?>
