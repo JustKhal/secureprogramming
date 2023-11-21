@@ -1,22 +1,30 @@
-<?php
+    <?php
+    session_start();
     require_once 'connection.php';
     require_once 'CustomSessionHandler.php';
 
     if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
-        $username = $_POST['username'];
-        $username = strtolower($username);
+        $usernameOrEmail = $_POST['usernameOrEmail'];
         $password = $_POST['password'];
 
-        $query = "SELECT * FROM users WHERE username=?";
+        // Check if the entered value is an email or a username
+        if (filter_var($usernameOrEmail, FILTER_VALIDATE_EMAIL)) {
+            // User entered an email
+            $query = "SELECT * FROM users WHERE email=?";
+        } else {
+            // User entered a username
+            $query = "SELECT * FROM users WHERE username=?";
+        }
+
         $stmt = $db->prepare($query);
-        $stmt->bind_param("s", $username);
+        $stmt->bind_param("s", $usernameOrEmail);
         $stmt->execute();
         $result = $stmt->get_result();
 
         if ($result->num_rows === 1) {
             $row = $result->fetch_assoc();
-
+            $_SESSION["error_message"] = "Login Failed a";    
             // Verify the entered password against the hashed password in the database
             if (password_verify($password, $row['password'])) {
                 $_SESSION["success_message"] = "Login Success";
@@ -32,11 +40,11 @@
                     header("Location: ../messages.php");
                 }
             } else {
-                $_SESSION["error_message"] = "Login Failed";
+                $_SESSION["error_message"] = "Login Failed b";
                 header("Location: ../index.php");
             }
         } else {
-            $_SESSION["error_message"] = "Login Failed";
+            $_SESSION["error_message"] = "Login Failed c";
             header("Location: ../index.php");
         }
 

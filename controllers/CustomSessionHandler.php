@@ -5,7 +5,7 @@
 
         public function open($savePath, $sessionName): bool
         {
-            $this->db = new mysqli('127.0.0.1', 'root', '', 'sq');
+            $this->db = new mysqli('127.0.0.1', 'root', '', 'sp');
 
             if ($this->db->connect_error) {
                 return false;
@@ -80,4 +80,3 @@
 
     $customSessionHandler = new CustomSessionHandler();
     session_set_save_handler($customSessionHandler, true);
-    session_start();

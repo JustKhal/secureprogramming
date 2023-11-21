@@ -20,16 +20,21 @@ session_start();
         echo '<div class="alert alert-success">' . $_SESSION['success_message'] . '</div>';
         unset($_SESSION['success_message']);
     }
+
+    if(isset($_GET['message'])){
+        echo '<div class="alert alert-success">' . $_GET['message'] . '</div>';
+        unset($_GET['message']);
+    }
 ?>
 <body>
     <div class="container">
         <form action="controllers/AuthController.php" method="POST">
             <h2>Login</h2>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
+            <!-- <label for="username">Email/Username:</label> -->
+            <input type="text" id="usernameOrEmail" name="usernameOrEmail" placeholder="Email/Username" required>
 
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
+            <!-- <label for="password">Password:</label> -->
+            <input type="password" id="password" name="password" placeholder="Password" required>
 
             <button type="submit" name="login" value="login">Login</button>
         </form>
