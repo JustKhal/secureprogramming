@@ -42,7 +42,7 @@
     ?>
     <body>
         <div class="container">
-            <h2>Welcome, <?php echo $_SESSION['username']; ?> (Admin)!</h2>
+        <h2>Welcome, <?php echo htmlspecialchars($_SESSION['username'], ENT_QUOTES, 'UTF-8'); ?> (ADMIN)!</h2>
             <h3>All Messages</h3>
 
             <?php

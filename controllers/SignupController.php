@@ -1,6 +1,5 @@
 <?php
     require_once 'connection.php';
-    require_once 'CustomSessionHandler.php';
     session_start();
 
     if ($_SERVER['REQUEST_METHOD'] === "POST") {
@@ -78,31 +77,31 @@
         $checkUsernameStmt->close();
         $checkEmailStmt->close();
         $db->close();
-
-        function isValidEmail($email) {
-            return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
-        }
-
-        function isPasswordStrong($password) {
-            // Minimum length of 8 characters
-            $length = strlen($password) >= 8;
-            // At least one capital letter
-            $capital = preg_match('/[A-Z]/', $password);
-            // At least one number
-            $number = preg_match('/\d/', $password);
-            // At least one special character
-            $specialChar = preg_match('/[^A-Za-z0-9]/', $password);
-
-            return $length && $capital && $number && $specialChar;
-        }
-
-        function isValidUsername($username) {
-            // Minimum length of 6 characters
-            $length = strlen($username) >= 6;
-            // Alphanumeric characters only
-            $alphanumericOnly = ctype_alnum($username);
-
-            return $length && $alphanumericOnly;
-        }
     }
+
+    function isValidEmail($email) {
+        return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
+    }
+
+    function isPasswordStrong($password) {
+        // Minimum length of 8 characters
+        $length = strlen($password) >= 8;
+        // At least one capital letter
+        $capital = preg_match('/[A-Z]/', $password);
+        // At least one number
+        $number = preg_match('/\d/', $password);
+        // At least one special character
+        $specialChar = preg_match('/[^A-Za-z0-9]/', $password);
+
+        return $length && $capital && $number && $specialChar;
+    }
+
+    function isValidUsername($username) {
+        // Minimum length of 6 characters
+        $length = strlen($username) >= 6;
+        // Alphanumeric characters only
+        $alphanumericOnly = ctype_alnum($username);
+        return $length && $alphanumericOnly;
+    }
+
 ?>

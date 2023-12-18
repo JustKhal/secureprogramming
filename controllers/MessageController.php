@@ -15,7 +15,7 @@
         }
 
         // check title
-        $title = htmlspecialchars($_POST['title'], ENT_QUOTES, 'UTF-8');
+        $title = trim(htmlspecialchars($_POST['title'], ENT_QUOTES, 'UTF-8'));
         if (empty($title) || strlen($title) > 32) {
             $_SESSION['error_message'] = "Invalid Title! Please provide a non-empty title with a maximum length of 32 characters.";
             header("Location: ../send.php");
@@ -23,7 +23,7 @@
         }
 
         // Check message
-        $message = htmlspecialchars($_POST['message'], ENT_QUOTES, 'UTF-8');
+        $message = trim(htmlspecialchars($_POST['message'], ENT_QUOTES, 'UTF-8'));
         if (empty($message) || strlen($message) > 255 || str_word_count($message) < 5) {
             $_SESSION['error_message'] = "Invalid Message! Please provide a non-empty message with a maximum length of 255 characters and at least 5 words.";
             header("Location: ../send.php");

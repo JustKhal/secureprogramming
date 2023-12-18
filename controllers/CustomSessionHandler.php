@@ -29,7 +29,12 @@
             $data = $result->fetch_assoc();
             $stmt->close();
 
-            return $data['data'] ?: '';
+            // Check if 'data' key exists in the $data array
+            if (isset($data['data'])) {
+                return $data['data'];
+            } else {
+                return '';
+            }
         }
 
         public function write($sessionId, $data): bool
@@ -81,7 +86,13 @@
         private function getUserIdFromSessionData($data)
         {
             $sessionData = $_SESSION;
-            return $sessionData['user_id'];
+
+            // Check if 'user_id' key exists in the $sessionData array
+            if (isset($sessionData['user_id'])) {
+                return $sessionData['user_id'];
+            } else {
+                return -1;  // or another default value
+            }
         }
     }
 

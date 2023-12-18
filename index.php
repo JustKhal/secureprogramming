@@ -1,4 +1,6 @@
 <?php
+require_once './controllers/connection.php';
+require_once './controllers/CustomSessionHandler.php';
 session_start();
 ?>
 
