@@ -49,7 +49,7 @@
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     echo '<div class="message">';
-                    echo '<p><strong>Sender:</strong> ' . $row['username'] . '</p>';
+                    echo '<p><strong>Sender:</strong> ' . htmlspecialchars($row['username']) . '</p>';
                     echo '<p><strong>Recipient:</strong> ' . getRecipientName($row['recipient_id']) . '</p>';
                     echo '<p><strong>Title:</strong> ' . $row['title'] . '</p>';
                     echo $row['message'];
